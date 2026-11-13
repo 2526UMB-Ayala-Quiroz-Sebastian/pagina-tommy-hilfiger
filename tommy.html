@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommy Hilfiger | Sitio Oficial</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            color: #111;
+            background-color: #fff;
+        }
+
+        /* ================= PANTALLA DE LOGIN ================= */
+        #auth-view {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .auth-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 6px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .auth-logo {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #001a41;
+            margin-bottom: 25px;
+        }
+
+        .auth-logo span {
+            color: #cc0000;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            background-color: #001a41;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .auth-btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* ================= VISTA DE LA TIENDA ================= */
+        #shop-view {
+            display: none;
+        }
+
+        .top-bar {
+            background-color: #001a41;
+            color: #fff;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e5e5e5;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #001a41;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: #cc0000;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: #cc0000;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            align-items: center;
+        }
+
+        .nav-icons span {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-icons span:hover {
+            color: #cc0000;
+        }
+
+        .logout-link {
+            color: #cc0000;
+            font-size: 13px;
+            cursor: pointer;
+            margin-left: 10px;
+            text-decoration: underline;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: #fff;
+            color: #001a41;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #cc0000;
+            color: #fff;
+        }
+
+        .btn-add {
+            display: block;
+            width: 100%;
+            background-color: #001a41;
+            color: #fff;
+            padding: 10px;
+            margin-top: 12px;
+            border: none;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .btn-add:hover {
+            background-color: #cc0000;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-section {
+            display: block;
+        }
+
+        .products-section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #001a41;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #f9f9f9;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 15px;
+            color: #cc0000;
+            font-weight: bold;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 13px;
+            margin-right: 8px;
+        }
+
+        /* Modales Generales */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 6px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .close-modal:hover {
+            color: #cc0000;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            color: #001a41;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-items-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            font-size: 16px;
+            text-align: right;
+            margin-bottom: 20px;
+            color: #001a41;
+        }
+
+        /* Campos de Formularios / Tarjeta / Factura */
+        .form-box input, .form-box select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .row-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            font-weight: bold;
+            color: #001a41;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        /* Estilo de Factura Digital */
+        .invoice-box {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            padding: 20px;
+            font-size: 13px;
+            color: #333;
+            max-height: 350px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #001a41;
+            padding-bottom: 10px;
+        }
+
+        footer {
+            background-color: #001a41;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= 1. PANTALLA DE LOGIN ================= -->
+    <div id="auth-view">
+        <div class="auth-card">
+            <div class="auth-logo">TOMMY <span>HILFIGER</span></div>
+            <p style="margin-bottom: 20px; color: #555; font-size: 14px;">Inicia sesión para entrar al simulador de tienda.</p>
+            <form class="auth-form" onsubmit="loginToShop(event)">
+                <input type="text" id="userNameInput" required placeholder="Tu Nombre (ej. Carlos)">
+                <input type="password" required placeholder="Contraseña">
+                <button type="submit" class="auth-btn">ENTRAR A LA TIENDA</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= 2. VISTA DE LA TIENDA ================= -->
+    <div id="shop-view">
+
+        <!-- Barra Superior -->
+        <div class="top-bar">
+            Envío gratis en pedidos superiores a $999 MXN | Bienvenido(a), <span id="display-user-name" style="font-weight: bold;">Cliente</span>
+        </div>
+
+        <!-- Navegación -->
+        <header>
+            <div class="logo" onclick="switchSection('home', event)">TOMMY <span>HILFIGER</span></div>
+            <nav>
+                <ul>
+                    <li><a onclick="switchSection('mujer', event)">MUJER</a></li>
+                    <li><a onclick="switchSection('hombre', event)">HOMBRE</a></li>
+                    <li><a onclick="switchSection('ninos', event)">NIÑOS</a></li>
+                    <li><a onclick="switchSection('sale', event)" style="color: #cc0000;">SALE</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <span onclick="openModal('searchModal')">Buscar</span>
+                <span>Cuenta (<span id="user-profile-name">Perfil</span>)</span>
+                <span onclick="openModal('cartModal')">Bolsa (<span id="cart-count">0</span>)</span>
+                <span class="logout-link" onclick="logoutFromShop()">Cerrar Sesión</span>
+            </div>
+        </header>
+
+        <!-- ================= MODAL: BUSCAR ================= -->
+        <div id="searchModal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('searchModal')">&times;</span>
+                <div class="modal-title">Buscar Producto</div>
+                <input type="text" id="searchInput" class="search-input" placeholder="¿Qué estás buscando? (ej. Playera, Bolsa, Vestido...)" onkeyup="filterProducts()">
+                <div id="searchResults" style="font-size: 14px; color: #555; max-height: 200px; overflow-y: auto;">
+                    Escribe algo para buscar en el catálogo...
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODAL: BOLSA DE COMPRAS ================= -->
+        <div id="cartModal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
+                <div class="modal-title">Tu Bolsa de Compras</div>
+                <div class="cart-items-list" id="cartItemsContainer">
+                    <p style="color: #777; text-align: center; padding: 20px;">Tu bolsa está vacía.</p>
+                </div>
+                <div class="cart-total" id="cartTotalText">Total: $0.00 MXN</div>
+                <button class="btn" style="width: 100%; background-color: #cc0000; color: #fff;" onclick="openCheckoutModal()">PROCEDER AL PAGO Y FACTURA</button>
+            </div>
+        </div>
+
+        <!-- ================= MODAL: PAGO Y DATOS FISCALES ================= -->
+        <div id="checkoutModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 550px;">
+                <span class="close-modal" onclick="closeModal('checkoutModal')">&times;</span>
+                <div class="modal-title">Checkout y Facturación</div>
+                <form class="form-box" onsubmit="processPaymentAndInvoice(event)">
+                    
+                    <div class="section-subtitle">1. Datos Fiscales para la Factura</div>
+                    <input type="text" id="facRazonSocial" required placeholder="Razón Social o Nombre Completo">
+                    <input type="text" id="facRfc" required placeholder="RFC (ej. XAXX010101000)" maxlength="13">
+                    
+                    <select id="facRegimen" required>
+                        <option value="" disabled selected>Selecciona tu Régimen Fiscal</option>
+                        <option value="601">601 - General de Ley Personas Morales</option>
+                        <option value="612">612 - Personas Físicas con Actividades Empresariales</option>
+                        <option value="625">625 - Régimen de las Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas</option>
+                        <option value="626">626 - Régimen Simplificado de Confianza (RESICO)</option>
+                    </select>
+
+                    <input type="email" id="facEmail" required placeholder="Correo electrónico donde se enviará la factura">
+
+                    <div class="section-subtitle" style="margin-top: 15px;">2. Datos de Pago (Tarjeta)</div>
+                    <input type="text" required placeholder="Nombre en la Tarjeta">
+                    <input type="text" required maxlength="19" placeholder="Número de Tarjeta (4532 •••• •••• 8890)">
+                    
+                    <div class="row-inputs">
+                        <div>
+                            <input type="text" required placeholder="MM/AA">
+                        </div>
+                        <div>
+                            <input type="password" required maxlength="4" placeholder="CVV">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-btn" style="background-color: #001a41; margin-top: 10px;">PAGAR Y ENVIAR FACTURA AL CORREO</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= MODAL: FACTURA DIGITAL GENERADA ================= -->
+        <div id="invoiceModal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 550px;">
+                <span class="close-modal" onclick="closeModal('invoiceModal'); switchSection('home');">&times;</span>
+                <div class="modal-title" style="text-align: center;">Factura Generada y Enviada</div>
+                <p id="emailNotificationMsg" style="text-align: center; color: #008000; font-weight: bold; margin-bottom: 12px; font-size: 13px;"></p>
+                <div class="invoice-box" id="invoiceContentContainer">
+                    <!-- Contenido dinámico de la factura -->
+                </div>
+                <button class="btn" style="width: 100%; background-color: #001a41; color: #fff;" onclick="closeModal('invoiceModal'); switchSection('home');">FINALIZAR Y SEGUIR COMPRANDO</button>
+            </div>
+        </div>
+
+
+        <!-- ================= 1. INICIO / HOME ================= -->
+        <div id="home" class="page-section active-section">
+            <section class="hero">
+                <h1>Classic American Cool</h1>
+                <p>Descubre los nuevos estilos de temporada con la esencia clásica y moderna que nos define.</p>
+                <a onclick="switchSection('hombre', event)" class="btn" style="cursor: pointer;">COMPRAR AHORA</a>
+            </section>
+
+            <main class="products-section">
+                <h2 class="section-title">Destacados de la Temporada</h2>
+                <div class="product-grid">
+                    <div class="product-card" data-name="Playera Clásica con Logo" data-price="1299">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Playera Clásica con Logo</div>
+                            <div class="product-price">$1,299.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Playera Clásica con Logo', 1299)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Chamarra Estilo Bomber" data-price="3499">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Chamarra Estilo Bomber</div>
+                            <div class="product-price">$3,499.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Chamarra Estilo Bomber', 3499)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Sudadera con Capucha" data-price="2199">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Sudadera con Capucha</div>
+                            <div class="product-price">$2,199.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Sudadera con Capucha', 2199)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 2. APARTADO MUJER ================= -->
+        <div id="mujer" class="page-section">
+            <main class="products-section">
+                <h2 class="section-title">Colección Mujer</h2>
+                <div class="product-grid">
+                    <div class="product-card" data-name="Vestido Casual Estampado" data-price="2499">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Vestido Casual Estampado</div>
+                            <div class="product-price">$2,499.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Vestido Casual Estampado', 2499)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Suéter Tejido Clásico" data-price="1999">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Suéter Tejido Clásico</div>
+                            <div class="product-price">$1,999.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Suéter Tejido Clásico', 1999)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Jeans Corte Regular Mujer" data-price="2299">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Jeans Corte Regular</div>
+                            <div class="product-price">$2,299.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Jeans Corte Regular Mujer', 2299)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Bolso Crossbody Elegante" data-price="2899">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Bolso Crossbody Elegante</div>
+                            <div class="product-price">$2,899.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Bolso Crossbody Elegante', 2899)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Blusa Casual Rayas" data-price="1499">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1554568218-0f1715e72254?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Blusa Casual Rayas</div>
+                            <div class="product-price">$1,499.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Blusa Casual Rayas', 1499)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 3. APARTADO HOMBRE ================= -->
+        <div id="hombre" class="page-section">
+            <main class="products-section">
+                <h2 class="section-title">Colección Hombre</h2>
+                <div class="product-grid">
+                    <div class="product-card" data-name="Camisa Polo Slim Fit" data-price="1599">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Camisa Polo Slim Fit</div>
+                            <div class="product-price">$1,599.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Camisa Polo Slim Fit', 1599)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Camisa Casual Oxford" data-price="1899">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Camisa Casual Oxford</div>
+                            <div class="product-price">$1,899.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Camisa Casual Oxford', 1899)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Blazer Estilo Ejecutivo" data-price="4299">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1516257984-b1b4d707412e?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Blazer Estilo Ejecutivo</div>
+                            <div class="product-price">$4,299.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Blazer Estilo Ejecutivo', 4299)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Pantalón Chino Hombre" data-price="2199">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1473966968600-fa809b869a1c?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Pantalón Chino Hombre</div>
+                            <div class="product-price">$2,199.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Pantalón Chino Hombre', 2199)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Cinturón de Piel Clásico" data-price="1199">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Cinturón de Piel Clásico</div>
+                            <div class="product-price">$1,199.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Cinturón de Piel Clásico', 1199)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 4. APARTADO NIÑOS ================= -->
+        <div id="ninos" class="page-section">
+            <main class="products-section">
+                <h2 class="section-title">Colección Niños</h2>
+                <div class="product-grid">
+                    <div class="product-card" data-name="Playera Infantil Flag" data-price="799">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1519457431-44ccd64a579b?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Playera Infantil Flag</div>
+                            <div class="product-price">$799.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Playera Infantil Flag', 799)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Sudadera Deportiva Jr" data-price="1399">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1503944583220-7eeec390d81b?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Sudadera Deportiva Jr</div>
+                            <div class="product-price">$1,399.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Sudadera Deportiva Jr', 1399)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Vestido Casual Niña" data-price="1199">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1522771930-78848d9293e8?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Vestido Casual Niña</div>
+                            <div class="product-price">$1,199.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Vestido Casual Niña', 1199)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Chamarra Abrigadora Jr" data-price="2199">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Chamarra Abrigadora Jr</div>
+                            <div class="product-price">$2,199.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Chamarra Abrigadora Jr', 2199)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ================= 5. APARTADO SALE ================= -->
+        <div id="sale" class="page-section">
+            <main class="products-section">
+                <h2 class="section-title" style="color: #cc0000;">Rebajas / Sale</h2>
+                <div class="product-grid">
+                    <div class="product-card" data-name="Playera Básica Rebajada" data-price="799">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Playera Básica Rebajada</div>
+                            <div class="product-price"><span class="old-price">$1,299.00</span> $799.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Playera Básica Rebajada', 799)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Pantalón Chino Outlet" data-price="1499">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Pantalón Chino Outlet</div>
+                            <div class="product-price"><span class="old-price">$2,599.00</span> $1,499.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Pantalón Chino Outlet', 1499)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Gorra Clásica Hilfiger" data-price="499">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Gorra Clásica Hilfiger</div>
+                            <div class="product-price"><span class="old-price">$999.00</span> $499.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Gorra Clásica Hilfiger', 499)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-name="Tenis Casuales Outlet" data-price="1799">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=600&auto=format&fit=crop');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Tenis Casuales Outlet</div>
+                            <div class="product-price"><span class="old-price">$2,999.00</span> $1,799.00 MXN</div>
+                            <button class="btn-add" onclick="addToCart('Tenis Casuales Outlet', 1799)">AÑADIR A LA BOLSA</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Tommy Hilfiger Licensing B.V. Todos los derechos reservados.</p>
+            <p>Simulador integral con pasarela de pagos, captura fiscal y envío automático de facturas por correo.</p>
+        </footer>
+
+    </div>
+
+    <!-- Lógica JavaScript -->
+    <script>
+        let currentUserName = "Cliente";
+        let cart = [];
+
+        function loginToShop(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('userNameInput').value.trim();
+            if(nameInput !== '') {
+                currentUserName = nameInput;
+                document.getElementById('display-user-name').textContent = currentUserName;
+                document.getElementById('user-profile-name').textContent = currentUserName;
+
+                document.getElementById('auth-view').style.display = 'none';
+                document.getElementById('shop-view').style.display = 'block';
+            }
+        }
+
+        function logoutFromShop() {
+            document.getElementById('shop-view').style.display = 'none';
+            document.getElementById('auth-view').style.display = 'flex';
+            document.getElementById('userNameInput').value = '';
+            cart = [];
+            updateCartUI();
+        }
+
+        function switchSection(sectionId, event) {
+            if(event) event.preventDefault();
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => sec.classList.remove('active-section'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(`¡"${name}" se ha añadido a tu bolsa de compras!`);
+        }
+
+        function updateCartUI() {
+            const countSpan = document.getElementById('cart-count');
+            const container = document.getElementById('cartItemsContainer');
+            const totalText = document.getElementById('cartTotalText');
+
+            countSpan.textContent = cart.length;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color: #777; text-align: center; padding: 20px;">Tu bolsa está vacía.</p>';
+                totalText.textContent = 'Total: $0.00 MXN';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item) => {
+                total += item.price;
+                html += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price.toLocaleString()} MXN</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            totalText.textContent = `Total: $${total.toLocaleString()}.00 MXN`;
+        }
+
+        function openCheckoutModal() {
+            if(cart.length === 0) {
+                alert('Tu bolsa está vacía. Agrega productos antes de pagar.');
+                return;
+            }
+            closeModal('cartModal');
+            openModal('checkoutModal');
+        }
+
+        function processPaymentAndInvoice(event) {
+            event.preventDefault();
+
+            // Recopilar datos del formulario fiscal
+            const razonSocial = document.getElementById('facRazonSocial').value;
+            const rfc = document.getElementById('facRfc').value;
+            const regimen = document.getElementById('facRegimen').value;
+            const email = document.getElementById('facEmail').value;
+
+            closeModal('checkoutModal');
+
+            // Generar Factura Digital y simular envío por correo
+            generateInvoice(razonSocial, rfc, regimen, email);
+            openModal('invoiceModal');
+            
+            // Vaciar bolsa de compras
+            cart = [];
+            updateCartUI();
+        }
+
+        function generateInvoice(razonSocial, rfc, regimen, email) {
+            const container = document.getElementById('invoiceContentContainer');
+            const notificationMsg = document.getElementById('emailNotificationMsg');
+            const dateStr = new Date().toLocaleString();
+            const folio = Math.floor(100000 + Math.random() * 900000);
+
+            notificationMsg.textContent = `✉️ ¡Factura enviada exitosamente a: ${email}!`;
+
+            let subtotal = 0;
+            let itemsHtml = '';
+
+            cart.forEach(item => {
+                subtotal += item.price;
+                itemsHtml += `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>1x ${item.name}</span>
+                        <span>$${item.price.toLocaleString()}.00</span>
+                    </div>
+                `;
+            });
+
+            const iva = subtotal * 0.16; // 16% IVA simulado
+            const total = subtotal + iva;
+
+            container.innerHTML = `
+                <div class="invoice-header">
+                    <strong>TOMMY HILFIGER MÉXICO S.A. DE C.V.</strong><br>
+                    RFC: THM981234AB9<br>
+                    Folio Fiscal: ${folio}
+                </div>
+                <p><strong>Fecha:</strong> ${dateStr}</p>
+                <hr style="margin: 8px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p style="font-weight: bold; color: #001a41;">DATOS DEL RECEPTOR:</p>
+                <p><strong>Razón Social:</strong> ${razonSocial}</p>
+                <p><strong>RFC:</strong> ${rfc}</p>
+                <p><strong>Régimen Fiscal:</strong> ${regimen}</p>
+                <p><strong>Correo Electrónico:</strong> ${email}</p>
+                <hr style="margin: 8px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p style="font-weight: bold; margin-bottom: 5px; color: #001a41;">CONCEPTOS:</p>
+                ${itemsHtml}
+                <hr style="margin: 8px 0; border: 0; border-top: 1px dashed #ccc;">
+                <div style="text-align: right;">
+                    <p>Subtotal: $${subtotal.toFixed(2)}</p>
+                    <p>IVA (16%): $${iva.toFixed(2)}</p>
+                    <p style="font-weight: bold; font-size: 15px; color: #001a41;">Total Pagado: $${total.toFixed(2)} MXN</p>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-size: 11px; color: #777;">CFDI Versión 4.0 generado y enviado por correo electrónico de forma automática.</p>
+            `;
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            const cards = document.querySelectorAll('.product-card');
+
+            if (query.trim() === '') {
+                resultsContainer.innerHTML = 'Escribe algo para buscar en el catálogo...';
+                return;
+            }
+
+            let matches = [];
+            cards.forEach(card => {
+                const title = card.getAttribute('data-name').toLowerCase();
+                if (title.includes(query)) {
+                    matches.push(card.getAttribute('data-name'));
+                }
+            });
+
+            matches = [...new Set(matches)];
+
+            if (matches.length > 0) {
+                let html = '<ul style="list-style: none; padding: 0;">';
+                matches.forEach(match => {
+                    html += `<li style="padding: 8px 0; border-bottom: 1px solid #eee; color: #001a41; font-weight: 600;">🔍 ${match}</li>`;
+                });
+                html += '</ul>';
+                resultsContainer.innerHTML = html;
+            } else {
+                resultsContainer.innerHTML = '<p style="color: #cc0000;">No se encontraron productos con ese nombre.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>
